@@ -51,7 +51,7 @@ int main() {
         }
         cout<<endl;
 
-        i2=i2+1;        
+        i2=i2+1;
     }
 
     return 0;
