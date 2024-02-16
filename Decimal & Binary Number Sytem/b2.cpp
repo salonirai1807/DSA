@@ -17,7 +17,7 @@ int main() {
         if (digit==1){
             ans = ans * pow(2,i);
         }
-
+        
         n=n/10;
         i++;
     }
