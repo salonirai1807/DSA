@@ -35,5 +35,24 @@ C D
 B C D
 A B C D     */
 
+    int i2, j2, n2;
+
+    cout<<"Enter No. of Rows : ";
+    cin>>n2;
+
+    i2=1;
+    while(i2<=n2) {
+        j2=1;
+        char start2 = 'A' + n2 - i2;
+        while (j2<=i2) {
+            cout<<start2<<" ";
+            start2 = start2 + 1;
+            j2=j2+1;
+        }
+        cout<<endl;
+
+        i2=i2+1;        
+    }
+
     return 0;
 }
