@@ -29,7 +29,7 @@ int main() {
     cout<<"Enter r : ";
     cin>>r;
 
-    cout<<" The Value of nCr is : "<<nCr(n, r);
+    cout<<"The Value of nCr is : "<<nCr(n, r);
 
     return 0;
 }
