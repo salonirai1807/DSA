@@ -10,7 +10,7 @@ void BinarySearch(int arr[], int size) {
     cin>>key;
 
     while(start<=end) {
-        int mid=(start+end)/2;
+        int mid=start + (end - start)/2;          // Optimised Version
 
         if(arr[mid]==key) {
             cout<<"Element Found at "<<mid<<" index.\n\n";
