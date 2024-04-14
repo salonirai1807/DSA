@@ -27,7 +27,7 @@ void BinarySearch(int arr[], int size) {
     }
 
     if(start>end) {
-        cout<<"The number, "<<key<<" is not found in the given Array";
+        cout<<"The number, "<<key<<" is not found in the given Array.\n\n";
     }
 }
 
