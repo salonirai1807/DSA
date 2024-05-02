@@ -13,6 +13,16 @@ bool isPresent(int arr[][3], int target, int row, int col){
     return false;
 }
 
+void rowSum(int arr[][2], int row, int col) {
+    for(int i=0 ; i<row ; i++) {
+        int sum = 0;
+        for(int j=0 ; j<col ; j++) {
+            sum += arr[i][j];
+        }
+        cout<<"Sum of row "<< i+1 <<" is : "<<sum<<endl;
+    }
+}
+
 int main() {
     int arr1[3][3];
     int arr2[3][2];
@@ -63,6 +73,11 @@ int main() {
         }
         cout<<endl;
     }
+    cout<<endl;
+
+    cout<<"Let's find Sum of each row of the 2D Array..."<<endl<<endl;
+
+    rowSum(arr2, 3, 2);
 
     return 0;
 }
