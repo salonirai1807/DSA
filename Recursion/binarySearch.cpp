@@ -2,21 +2,29 @@
 
 using namespace std;
 
-// LINEAR SEARCH
+// BINARY SEARCH
 
-bool linear(int arr[], int n, int key) {
+bool binary(int arr[], int s, int e, int key) {
     // Base Condition
-    if(n==0) {
+    if(s>e) {
         return false;
     }
 
-    if(arr[0] == key) {
+    int mid = (s+e)/2;
+
+    if(arr[mid] == key) {
         return true;
     }
 
     // Recursive Statement
+    if(arr[mid] > key) {
+        e = mid-1;
+        binary(arr, s, e, key);
+    }
+
     else {
-        return linear(arr+1, n-1, key);
+        s = mid+1;
+        binary(arr, s, e, key);
     }
 }
 
@@ -28,7 +36,7 @@ int main() {
     cout << "Enter Element to be Found : ";
     cin>>key;
 
-    bool ans = linear(arr, n, key);
+    bool ans = binary(arr, 0, 5, key);
 
     if(ans) {
         cout << "FOUND! :)";
