@@ -211,7 +211,7 @@ int main()
     cout << endl;
 
     hero *h3 = new hero();
-    delete h3;             // In case of dynamic allocation, Destructor should be called manually.
+    delete h3;              // In case of dynamic allocation, Destructor should be called manually.
    
     return 0;
 }
