@@ -2,17 +2,18 @@
 
 using namespace std;
 
-// SINGLY LINKED LIST
+// DOUBLY LINKED LIST
 
-// Implementation of a Node
 class Node {
     public:
 
     int data;
+    Node* prev;     // Pointer to the previous node.
     Node* next;     // Pointer to the next node.
 
     Node(int data) {
         this -> data = data;
+        this -> prev = NULL;
         this -> next = NULL;
     }
 
@@ -27,44 +28,79 @@ class Node {
     }
 };
 
+
 // Traversal
 
 void print(Node* head) {
     Node* temp = head;
 
     while(temp != NULL) {
-        cout << temp -> data << "|" << temp -> next << " , ";
+        cout << temp -> prev << "|" << temp -> data << "|" << temp -> next << " , ";
         temp = temp->next;
     }
     cout << endl;
 }
 
+
+int getLength(Node* head) {
+    int len = 0;
+
+    Node* temp = head;
+
+    while(temp != NULL) {
+        len++;
+        temp = temp->next;
+    }
+
+    return len;
+}
+
+
 // Insert at Start
 
-void insertAtHead(Node* &head, int d) {
-    // Create a new node
-    Node* temp = new Node(d);
+void insertAtHead(Node* &head, Node* tail, int d) {
+    if(head == NULL) {
+        Node* temp = new Node(d);
+        head = temp;
+        tail = temp;
+    }
 
-    temp->next = head;
-    head = temp;
+    else {
+        Node* temp = new Node(d);
+
+        temp->next = head;
+        head -> prev = temp;
+        head = temp;
+    }
+    
 }
+
 
 // Insert at End
 
-void insertAtTail(Node* &tail, int d) {
-    // Create a new node
-    Node* temp = new Node(d);
+void insertAtTail(Node* &tail, Node* head, int d) {
+    if(tail == NULL) {
+        Node* temp = new Node(d);
+        tail = temp;
+        head = temp;
+    }
 
-    tail->next = temp;
-    tail = temp;             // (OR) tail = tail->next;
+    else {
+        Node* temp = new Node(d);
+
+        tail->next = temp;
+        temp -> prev = tail;
+        tail = temp;
+    }
 }
+
 
 // Insert in Middle
 
 void insertAtPosition(Node* &head, Node* &tail, int pos, int d) {
     // Inserting at start
     if(pos == 1) {
-        insertAtHead(head, d);
+        insertAtHead(head, tail, d);
         return;
     }
 
@@ -77,7 +113,7 @@ void insertAtPosition(Node* &head, Node* &tail, int pos, int d) {
 
     // Inserting at end
     if(temp->next == NULL) {
-        insertAtTail(tail, d);
+        insertAtTail(tail, head, d);
         return;
     }
 
@@ -85,7 +121,9 @@ void insertAtPosition(Node* &head, Node* &tail, int pos, int d) {
     Node* nodeToInsert = new Node(d);
 
     nodeToInsert->next = temp->next;
+    temp -> next -> prev = nodeToInsert;
     temp->next = nodeToInsert;
+    nodeToInsert -> prev = temp;
 }
 
 
@@ -94,6 +132,7 @@ void insertAtPosition(Node* &head, Node* &tail, int pos, int d) {
 void deleteNode(Node* &head, int pos, Node* &tail) {
     if(pos == 1) {
         Node* temp = head;
+        temp -> next -> prev = NULL;
         head = head -> next;
         temp -> next = NULL;
         delete temp;
@@ -114,6 +153,7 @@ void deleteNode(Node* &head, int pos, Node* &tail) {
             tail = prev;
         }
 
+        curr -> prev = NULL;
         prev -> next = curr -> next;
         curr -> next  = NULL;
         delete curr;
@@ -122,35 +162,32 @@ void deleteNode(Node* &head, int pos, Node* &tail) {
 
 
 int main() {
-    Node* n1 =  new Node(10);
-
-    // cout << "Data of n1 is : " << n1->data << endl;
-    // cout << "Address of the next Node of n1 is : " << n1->next << endl;
+    Node* n1 = new Node(10);
 
     Node* head = n1;
     Node* tail = n1;
 
     print(head);
 
-    insertAtHead(head, 20);
+    insertAtHead(head, tail, 20);
     print(head);
 
-    insertAtTail(tail, 30);
+    insertAtTail(tail, head, 30);
     print(head);
 
-    insertAtTail(tail, 40);
+    insertAtPosition(head, tail, 3, 40);
     print(head);
 
-    insertAtPosition(head, tail, 5, 50);
+    insertAtTail(tail, head, 50);
     print(head);
 
-    deleteNode(head, 5, tail);
-    print(head);    
+    deleteNode(head, 3, tail);
+    print(head);
 
-    cout<<endl;
-
-    cout << "Data of head is : " << head->data << endl;
+    cout << endl << "Data of head is : " << head->data << endl;
     cout << "Data of tail is : " << tail->data << endl;
+
+    cout << "Length of the Linked List : " << getLength(head) << endl << endl;
 
     return 0;
 }
