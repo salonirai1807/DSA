@@ -44,14 +44,16 @@ int main() {
     cout<<"Copying a pointer into another pointer."<<endl;
 
     int *q = p;
-    cout<< *p << " - " << *q <<endl;
+    cout<< *p << " - " << *q <<endl;       // Both 'p' & 'q' are pointing to num.
     cout<< p << " - " << q <<endl<<endl;
 
     int t = 8;
     int *p1 = &t;
     cout<<"Address of t (Before) : "<<p1<<endl;
+    cout << "Value of *p1 will be : " << *p1 << endl;
     p1 = p1 + 1;
-    cout<<"Address of t (After) : "<<p1;   // Since, size of 'int' is 4 bytes, it will be incremented by 4
+    cout<<"Address of t (After) : "<<p1 << endl;   // Since, size of 'int' is 4 bytes, it will be incremented by 4
+    cout << "Value of *p1 now will be : " << *p1 << endl;   // Now p1 doesn't point to t anymore.
 
     return 0;
 }

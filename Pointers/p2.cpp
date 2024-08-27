@@ -2,6 +2,8 @@
 
 using namespace std;
 
+// Pointers with Arrays
+
 int main() {
     int arr[5] = {10, 20, 30, 40};
 
@@ -50,6 +52,7 @@ int main() {
     // But, it is permitted, if we increment a pointer by one.
 
     int *p = arr1;
+    cout << "*p : " << *p <<endl;
     cout << "p Before : " << p <<endl;
     p = p+1;       // Now p points to arr[1] instead of arr[0].
     cout << "p After : " << p <<endl;

@@ -40,7 +40,6 @@ void insertAtTail(Node* &tail, int d) {
     tail = temp;             // (OR) tail = tail->next;
 }
 
-
 // To check whether Loop/Cycle is present in the Linked List or not.
 
 bool detectLoop(Node* head) {
@@ -66,9 +65,9 @@ bool detectLoop(Node* head) {
 
 // Floyd's Cycle Detection Algorithm
 
-bool floydDetect(Node* head) {
+Node* floydDetect(Node* head) {
     if(head == NULL) {
-        return false;
+        return NULL;
     }
 
     Node* slow = head;
@@ -83,10 +82,53 @@ bool floydDetect(Node* head) {
         slow = slow -> next;
 
         if(slow == fast) {
-            return true;
+            return fast;
         }
     }
-    return false;
+    return NULL;
+}
+
+
+// Finding the starting node the Loop in th LL.
+
+Node* loopFirstNode(Node* head) {
+    if(head == NULL) {
+        return NULL;
+    }
+
+    Node* intersection = floydDetect(head);
+
+    if(intersection == NULL) {
+        return NULL;
+    }
+    
+    Node* fast = intersection;
+    Node* slow = head;
+
+    while(slow != fast) {
+        slow = slow -> next;
+        fast = fast -> next;
+    }
+
+    return slow;    
+}
+
+
+// Finding the starting node the Loop in th LL.
+
+void removeLoop(Node* head) {
+    if(head == NULL) {
+        return;
+    }
+
+    Node* startNode = loopFirstNode(head);
+    Node* temp = startNode;
+
+    while (temp -> next != startNode) {
+        temp = temp -> next;
+    }
+
+    temp -> next = NULL;    
 }
 
 
@@ -108,16 +150,7 @@ int main() {
 
     tail -> next = head -> next -> next;
 
-    /*
     if(detectLoop(head)) {
-        cout << endl << "Loop/Cycle is PRESENT..." << endl;
-    } 
-
-    else {
-        cout << endl << "Loop/Cycle is NOT PRESENT..." << endl;
-    } */
-
-    if(floydDetect(head)) {
         cout << endl << "Loop/Cycle is PRESENT..." << endl;
     } 
 
@@ -125,10 +158,20 @@ int main() {
         cout << endl << "Loop/Cycle is NOT PRESENT..." << endl;
     }
 
-    cout<<endl;
+    cout << "Starting Node of the loop is : " << loopFirstNode(head) -> data << endl;
 
-    cout << "Data of head is : " << head->data << endl;
-    cout << "Data of tail is : " << tail->data << endl;
+    cout << endl << "Removing loop from the Linked List..." << endl;
+    removeLoop(head);
+
+    if(detectLoop(head)) {
+        cout << endl << "Loop/Cycle is PRESENT..." << endl;
+    } 
+
+    else {
+        cout << endl << "Loop/Cycle is NOT PRESENT..." << endl;
+    }
+
+    cout << "Starting Node of the loop is : " << loopFirstNode(head) -> data << endl;
 
     return 0;
 }
